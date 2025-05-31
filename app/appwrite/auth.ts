@@ -1,4 +1,3 @@
-joinedAt: new DataTransfer()
 import { ID, OAuthProvider, Query } from "appwrite";
 import { account, database, appwriteConfig } from "~/appwrite/client";
 import { redirect } from "react-router";
