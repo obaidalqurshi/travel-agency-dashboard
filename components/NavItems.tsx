@@ -41,7 +41,7 @@ const handleLogout = async ()=>{
                     <p>{user?.email}</p>
                 </article>
                 <button onClick={handleLogout} className="cursor-pointer">
-                    <img src="/assets/icons/logout.svg" alt="logout" className="size-6"/>
+                    <img src="/assets/icons/logout.svg" alt="logout" className="size-6" referrerPolicy="no-referrer"/>
                 </button>
             </footer>
         </div>
