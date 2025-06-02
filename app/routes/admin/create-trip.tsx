@@ -2,12 +2,13 @@ import { ComboBoxComponent } from '@syncfusion/ej2-react-dropdowns'
 import { Header } from 'components'
 import React, { useState } from 'react'
 import type { Route } from './+types/create-trip';
-import { comboBoxItems, selectItems } from '~/constants';
+import { comboBoxItems, groupTypes, interests, selectItems, travelStyles } from '~/constants';
 import { cn, formatKey } from 'lib/utils';
 import { LayerDirective, LayersDirective, MapsComponent } from '@syncfusion/ej2-react-maps';
 import { world_map } from '~/constants/world_map';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { account } from '~/appwrite/client';
+import { useNavigate } from 'react-router';
 
 
 export const loader = async () => {
@@ -25,6 +26,7 @@ export const loader = async () => {
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     const countries = loaderData as Country[];
+    const navigate = useNavigate();
     const countryData = countries.map((country)=>({
         text: country.name,
         value: country.value
@@ -61,8 +63,29 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
             return
         }
         try {
-            console.log('user', user);
-            console.log('formData', formData)
+            const respone = await fetch('/api/create-trip',{
+                method: 'POST',
+                headers: {
+                    'Content-Type' :'application/json'
+                },
+                body: JSON.stringify({
+                    country: formData.country,
+                    numberOfDays: formData.duration,
+                    travelStyle: formData.travelStyle,
+                    interests:  formData.interest,
+                    budget: formData.budget,
+                    groupType: formData.groupType,
+                    userId: user.$id,
+                })  
+            })
+
+            const result : CreateTripResponse = await respone.json();
+            if(result?.id){
+                    navigate(`/trips/${result.id}`)
+            } 
+            else{
+                console.error('Failed to generate a trip')
+            }
         } catch (error) {
             console.error('Error generating trip', error)
         } finally{
