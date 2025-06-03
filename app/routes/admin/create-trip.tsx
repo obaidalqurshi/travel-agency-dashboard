@@ -2,7 +2,7 @@ import { ComboBoxComponent } from '@syncfusion/ej2-react-dropdowns'
 import { Header } from 'components'
 import React, { useState } from 'react'
 import type { Route } from './+types/create-trip';
-import { comboBoxItems, groupTypes, interests, selectItems, travelStyles } from '~/constants';
+import { comboBoxItems,  selectItems } from '~/constants';
 import { cn, formatKey } from 'lib/utils';
 import { LayerDirective, LayersDirective, MapsComponent } from '@syncfusion/ej2-react-maps';
 import { world_map } from '~/constants/world_map';
@@ -35,7 +35,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     const [formData, setFormData] = useState<TripFormData>({
         country: countries[0]?.name || '',
         travelStyle: '',
-        interest: '',
+        interests: '',
         budget: '',
         duration:0,
         groupType: '',
@@ -47,7 +47,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
         e.preventDefault();
         setLoading(true);
 
-        if(!formData.country || !formData.travelStyle || !formData.interest || !formData.budget || !formData.groupType){
+        if(!formData.country || !formData.travelStyle || !formData.interests || !formData.budget || !formData.groupType){
             setError('Please provide values for all fields')
             setLoading(false)
             return
@@ -72,7 +72,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
                     country: formData.country,
                     numberOfDays: formData.duration,
                     travelStyle: formData.travelStyle,
-                    interests:  formData.interest,
+                    interests:  formData.interests,
                     budget: formData.budget,
                     groupType: formData.groupType,
                     userId: user.$id,

@@ -13,7 +13,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
     if (!tripId) throw new Error('Trip ID is required');
     const [trip, trips] = await Promise.all([
-        await getTripById(tripId),
+         getTripById(tripId),
         getAllTrips(4,0)
     ])
     return {
